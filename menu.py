@@ -43,7 +43,7 @@ class menu:
             else:
                 return n
 
-    def menu(listaOpc):
+    def interface(listaOpc):
         menu.cabecalho("Menu Principal")
         for c, item in enumerate(listaOpc, start=1):
             print("\033[92m" + f"{c} - {item}" + "\033[0m")

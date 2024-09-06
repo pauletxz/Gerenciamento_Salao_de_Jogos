@@ -11,13 +11,17 @@ def main():
 
     menu.cabecalho(f'Gerenciamento CyberCafe')
     while True:
-        resposta = menu(['Adicionar Jogo','Remover Jogo','Editar Jogo','Adcionar Nova Seccao', 'Remover Seccao Existente','Todas as Seccoes', 'Buscar Jogos', 'Sair'])
+        resposta = menu.interface(['Adicionar Jogo','Remover Jogo','Editar Jogo','Adcionar Nova Seccao', 'Remover Seccao Existente','Todas as Seccoes', 'Buscar Jogos', 'Sair'])
         if resposta == 1:
             menu.cabecalho('Adicionar Jogo')
             jogos.adcionarJogo()
+            sleep(1)
         
         elif resposta == 2:
             menu.cabecalho('Remover Jogo')
+            jogos.removerJogo()
+            sleep(1)
+
 
         elif resposta == 3:
             menu.cabecalho('Editar Jogo')
