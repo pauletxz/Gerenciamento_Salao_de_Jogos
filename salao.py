@@ -3,9 +3,6 @@ class sessao:
         self.nome = nome
         self.descricao = descricao
         self.jogos = jogos
-
-    def __repr__(self):
-        return f"Sessao(nome={self.nome}, descricao={self.descricao}, jogos={self.jogos})"
     
 class No:
     def __init__(self, valor):

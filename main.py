@@ -1,35 +1,38 @@
 from menu import *
 from time import sleep
+from jogos import *
+from salao import *
 
 arq = "log.txt"
-criarArquivo(arq)
-validarArquivo(arq)
+menu.criarArquivo(arq)
+menu.validarArquivo(arq)
 
 def main():
 
-    cabecalho(f'Gerenciamento CyberCafe')
+    menu.cabecalho(f'Gerenciamento CyberCafe')
     while True:
         resposta = menu(['Adicionar Jogo','Remover Jogo','Editar Jogo','Adcionar Nova Seccao', 'Remover Seccao Existente','Todas as Seccoes', 'Buscar Jogos', 'Sair'])
         if resposta == 1:
-            cabecalho('Adicionar Jogo')
-
+            menu.cabecalho('Adicionar Jogo')
+            jogos.adcionarJogo()
+        
         elif resposta == 2:
-            cabecalho('Remover Jogo')
+            menu.cabecalho('Remover Jogo')
 
         elif resposta == 3:
-            cabecalho('Editar Jogo')
+            menu.cabecalho('Editar Jogo')
 
         elif resposta == 4:
-            cabecalho('Adicionar Nova Seccao')
+            menu.cabecalho('Adicionar Nova Seccao')
 
         elif resposta == 5:
-            cabecalho('Remover Seccao Existente')
+            menu.cabecalho('Remover Seccao Existente')
 
         elif resposta == 6:
-            cabecalho('Todas as Seccoes')
+            menu.cabecalho('Todas as Seccoes')
 
         elif resposta == 7:
-            cabecalho('Buscar Jogos')
+            menu.cabecalho('Buscar Jogos')
         
         elif resposta == 8:
             print('Salvando Alterecoes...')

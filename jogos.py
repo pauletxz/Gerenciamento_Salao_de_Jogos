@@ -1,14 +1,21 @@
 import numpy as np
 
 class jogos:
-    def __init__(self, nome, tipo, precoJogatina, generoJogo):
-        self.nome = nome
-        self.tipo = tipo
-        self.precoJogatina = precoJogatina
-        self.gerenoJogo = generoJogo
+    def adcionarJogo():
+        nome = str(input('Informe o nome do jogo:'))
+        tipo = str(input('Informe o tipo do jogo:'))
+        precoJogatina = float(input('Informe o preco do jogo:'))
+        generoJogo = str(input('Informe o genero do jogo:'))
+        jogo = {
+            'nome':nome,
+            'tipo':tipo,
+            'precoJogatina':precoJogatina,
+            'gerenoJogo':generoJogo
+        }
+        jogos.append(jogo)
+        print('Jogo adicionado com sucesso')
 
 class No:
     def __init__(self, valor):
         self.valor = valor
         self.prox = None
-
