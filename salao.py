@@ -33,9 +33,4 @@ class listaEncadeada:
             return None
         self.primeiro = self.primeiro.prox
         return temp
-        
-lista = listaEncadeada()
-lista.inserirInicio(1)
-lista.inserirInicio(2)
-lista.excluirPrimeiro(3)
-lista.mostrar()
+

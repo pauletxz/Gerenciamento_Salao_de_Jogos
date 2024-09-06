@@ -1,7 +1,12 @@
 from menu import *
 from time import sleep
 
+arq = "log.txt"
+criarArquivo(arq)
+validarArquivo(arq)
+
 def main():
+
     cabecalho(f'Gerenciamento CyberCafe')
     while True:
         resposta = menu(['Adicionar Jogo','Remover Jogo','Editar Jogo','Adcionar Nova Seccao', 'Remover Seccao Existente','Todas as Seccoes', 'Buscar Jogos', 'Sair'])
