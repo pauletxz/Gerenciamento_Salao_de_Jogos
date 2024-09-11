@@ -1,3 +1,8 @@
+import os
+from time import sleep
+from jogos import *
+from salao import *
+
 class menu:
     def linha(tam = 50):
         return '-' * tam
@@ -10,15 +15,7 @@ class menu:
         try:
             arquivo = open(nome, 'rt')
             arquivo.close()
-        except FileExistsError:
-            return False
-        else:
-            return True
-        
-    def validarArquivo(nome): # tentar unir validarArquivo e verificarArquivo em uma funcao só
-        if menu.verificaArquivo(nome): # ta uma gambiarra massa essas 3 funcoes pra so saber a existencia desse arquivo kkk
-            print("Arquivo encontrado")
-        else:
+        except:
             menu.criarArquivo(nome)
 
     def criarArquivo(nome): 
@@ -50,3 +47,53 @@ class menu:
         print(menu.linha())
         opcao = menu.opcoes('Voce escolheu: ')
         return opcao
+    
+    def limparTerminal():
+        if os.name == 'nt':  # Windows
+            os.system('cls')
+        else:  # Linux e Unix
+            os.system('clear')
+    
+    def criar():
+        menu.cabecalho(f'Gerenciamento CyberCafe')
+        while True:
+            resposta = menu.interface(['Adicionar Jogo','Remover Jogo','Editar Jogo','Adcionar Nova Seccao', 'Remover Seccao Existente','Todas as Seccoes', 'Buscar Jogos', 'Sair'])
+            if resposta == 1:
+                menu.cabecalho('Adicionar Jogo')
+                jogos.adcionarJogo()
+                sleep(1)
+                menu.limparTerminal()
+            
+            elif resposta == 2:
+                menu.cabecalho('Remover Jogo')
+                jogos.removerJogo()
+                sleep(1)
+
+
+            elif resposta == 3:
+                menu.cabecalho('Editar Jogo')
+
+            elif resposta == 4:
+                menu.cabecalho('Adicionar Nova Seccao')
+
+            elif resposta == 5:
+                menu.cabecalho('Remover Seccao Existente')
+
+            elif resposta == 6:
+                menu.cabecalho('Todas as Seccoes')
+
+            elif resposta == 7:
+                menu.cabecalho('Buscar Jogos')
+            
+            elif resposta == 8:
+                print('Salvando Alterecoes...')
+                sleep(1)
+                print('Sistema Encerrado')
+                #menu.limparTerminal()
+                sleep(1)
+                break
+            
+            else:
+                print('Opção invalida')
+            sleep(1)
+            #menu.limparTerminal()
