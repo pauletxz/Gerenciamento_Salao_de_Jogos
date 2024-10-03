@@ -1,0 +1,4 @@
+Nome: azul, Tipo: 1, Preço: 2.0, Gênero: 3
+Nome: joguin, Tipo: a, Preço: 2.0, Gênero: 3
+Nome: a, Tipo: b, Preço: 1.0, Gênero: 1
+Nome: a, Tipo: b, Preço: 2.0, Gênero: 1
