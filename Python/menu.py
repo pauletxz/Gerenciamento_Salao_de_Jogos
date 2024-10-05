@@ -1,9 +1,10 @@
-import os
+import os 
 from time import sleep
 from re import search
 from defs import Jogos, Sessao
 
 class menu:
+    
     def linha(tam=50):
         return '-' * tam
 
@@ -131,22 +132,34 @@ class menu:
                 nome = menu.validarEntradasUsuario('Informe o nome da seção: ')
                 descricao = menu.validarEntradasUsuario('Informe a descrição da seção: ')
                 jogosDisponivel = jogos.listarJogos()
-                jogosessao = jogos.buscarJogo(jogosDisponivel)
-                sessao.adicionarSecao(nome, descricao, jogosessao)
+                if jogosDisponivel is not None:
+                    for index, item in enumerate(jogosDisponivel):
+                        print(f"{index}: {item['nome':]}")
+                        jogosessao = menu.validarEntradasUsuario('Informe o número do jogo que deseja adicionar')
+                        sessao.adicionarSecao(nome, descricao, jogosessao)
+                else:
+                    print('Nenhum jogo disponível')
+
 
 
             elif resposta == 5:
 
                 menu.cabecalho('Remover Seção Existente')
-                nomeSecao = menu.validarEntradasUsuario('Informe o nome da seção a remover')
-                sessao.removerSecao(nomeSecao)
-
-                menu.limparTerminal()
+                listaSessoes = sessao.listarSecoes()
+                if listaSessoes is not None:
+                    for index, item in enumerate(listaSessoes):
+                        print(f"{index}: {item['nome']}")
+                        nomeSecao = menu.validarEntradasUsuario('Informe o nome da seção a remover')
+                        sessao.removerSecao(nomeSecao)
+                
                 sleep(.5)
+                menu.limparTerminal()
 
             elif resposta == 6:
                 menu.cabecalho('Todas as Seções')
                 sessao.listarSecoes()
+
+                sleep(2)
                 menu.limparTerminal()
 
             elif resposta == 7:

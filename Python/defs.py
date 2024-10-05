@@ -51,8 +51,7 @@ class ListaEncadeada:
     def listar(self):
         atual = self.cabeca
         if atual is None:
-            print("Nenhuma seção encontrada.")
-            return
+            print("Nenhuma dado encontrada.")
         while atual is not None:
             print(atual.dado)
             atual = atual.proximo
@@ -162,3 +161,4 @@ class Sessao:
     def listarSecoes(self):
         print("Lista de seções:")
         self.sessoes.listar()
+
