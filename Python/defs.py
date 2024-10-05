@@ -77,7 +77,7 @@ class Jogos:
             'genero_jogo': genero_jogo
         }
         self.jogos.adicionar(jogo)
-        self.atualizarArquivo()
+        self.atualizarArquivoJogo()
         return jogo
 
     def adicionarJogoArquivo(self, nome, tipo, preco_jogatina, genero_jogo):
@@ -89,11 +89,11 @@ class Jogos:
         jogo_removido = self.jogos.buscar(nome)
         if jogo_removido:
             self.jogos.remover(nome)
-            self.atualizarArquivo()
+            self.atualizarArquivoJogo()
         else:
             print(f"Jogo {nome} não encontrado.")
 
-    def atualizarArquivo(self):
+    def atualizarArquivoJogo(self):
         with open('jogo_log.txt', 'w') as arquivo:
             atual = self.jogos.cabeca
             while atual is not None:
@@ -115,7 +115,7 @@ class Jogos:
                 if novo_genero_jogo:
                     atual.dado['genero_jogo'] = novo_genero_jogo
                 print(f"Jogo {nome} atualizado com sucesso!")
-                self.atualizarArquivo()
+                self.atualizarArquivoJogo()
                 return atual.dado
             atual = atual.proximo
         
@@ -130,6 +130,9 @@ class Jogos:
         else:
             print(f"Jogo {nome} não encontrado.")
             return None
+        
+    def listarJogos(self):
+        self.jogos.listar()
 
 class Sessao:
     def __init__(self):
@@ -142,10 +145,10 @@ class Sessao:
             'jogos': jogoSessao
         }
         self.sessoes.adicionar(sessao)
-        self.atualizarArquivo()
+        self.atualizarArquivoSessao()
 
-    def atualizarArquivo(self):
-        with open('secao_log.txt', 'w') as arquivo:
+    def atualizarArquivoSessao(self):
+        with open('sessao_log.txt', 'w') as arquivo:
             atual = self.sessoes.cabeca
             while atual is not None:
                 arquivo.write(f"Nome: {atual.dado['nome']}, Descrição: {atual.dado['descricao']}, Jogos: {atual.dado['jogos']}\n")
@@ -154,7 +157,7 @@ class Sessao:
 
     def removerSecao(self, nome):
         self.sessoes.remover(nome)
-        self.atualizarArquivo()
+        self.atualizarArquivoSessao()
         
     def listarSecoes(self):
         print("Lista de seções:")

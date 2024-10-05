@@ -1,7 +1,7 @@
 import os
 from time import sleep
 from re import search
-from defs import *
+from defs import Jogos, Sessao
 
 class menu:
     def linha(tam=50):
@@ -85,6 +85,7 @@ class menu:
     def criar():
         menu.cabecalho('Gerenciamento CyberCafe')
         jogos = Jogos()
+        sessao = Sessao()
         while True:
             resposta = menu.interface([
                 'Adicionar Jogo', 'Remover Jogo', 'Editar Jogo',
@@ -92,6 +93,7 @@ class menu:
                 'Todas as Seções', 'Buscar Jogos', 'Sair'
             ])  
             if resposta == 1:
+
                 menu.cabecalho('Adicionar Jogo')
                 nome = menu.validarEntradasUsuario('Informe o nome do jogo: ')
                 tipo = menu.validarEntradasUsuario('Informe o tipo de jogo: ')
@@ -99,10 +101,12 @@ class menu:
                 genero_jogo = menu.validarEntradasUsuario('Informe o gênero do jogo: ')
                 jogos.adicionarJogo(nome, tipo, preco_jogatina, genero_jogo)
                 jogos.adicionarJogoArquivo(nome, tipo, preco_jogatina, genero_jogo)
+            
                 sleep(0.5)
                 menu.limparTerminal()
 
             elif resposta == 2:
+
                 menu.cabecalho('Remover Jogo')
                 nome = menu.validarEntradasUsuario('Informe o nome do jogo a remover: ')
                 jogos.removerJogo(nome)
@@ -111,53 +115,53 @@ class menu:
                 menu.limparTerminal()
 
             elif resposta == 3:
+
                 menu.cabecalho('Editar Jogo')
-                jogo.editarjogo()
-                menu.limparTerminal()
+                nome = menu.validarEntradasUsuario('Informe o nome do jogo que deseja editar: ')
+                tipo = menu.validarEntradasUsuario('Informe o novo tipo do jogo: ')
+                preco_jogatina = menu.validarEntredaFloat('Informe o novo valor da hora: ')
+                genero_jogo = menu.validarEntradasUsuario('Informe o novo gênero do Jogo: ')
+                jogos.editarJogo(nome, tipo, preco_jogatina, genero_jogo)
 
-            elif resposta == 4:
-                menu.cabecalho('Adicionar Nova Seção')
-                nome_secao = menu.validarEntradasUsuario('Informe o nome da seção: ')
-                descricao_secao = menu.validarEntradasUsuario('Informe a descrição da seção: ')
-
-                if len(jogos.jogos) > 0:
-                    print('Jogos disponíveis:')
-                    for i, jogo in enumerate(jogos.jogos):
-                        print(f'{i + 1} - {jogo["nome"]}')
-
-                    jogo_ids = input('Digite os números dos jogos que deseja adicionar à seção (separados por vírgula): ')
-                    jogo_ids = [int(i.strip()) - 1 for i in jogo_ids.split(',')]
-                    jogoSessao = [jogos.jogos[i] for i in jogo_ids]
-
-                    jogos.adcionarSecao(nome_secao, descricao_secao, jogoSessao)
-                else:
-                    print('Não há jogos disponíveis para adicionar à seção.')
-                
-                
                 sleep(.5)
                 menu.limparTerminal()
+            elif resposta == 4:
+                menu.cabecalho('Adicionar Nova Seção')
+
+                nome = menu.validarEntradasUsuario('Informe o nome da seção: ')
+                descricao = menu.validarEntradasUsuario('Informe a descrição da seção: ')
+                jogosDisponivel = jogos.listarJogos()
+                jogosessao = jogos.buscarJogo(jogosDisponivel)
+                sessao.adicionarSecao(nome, descricao, jogosessao)
+
 
             elif resposta == 5:
+
                 menu.cabecalho('Remover Seção Existente')
                 nomeSecao = menu.validarEntradasUsuario('Informe o nome da seção a remover')
-                jogos.removerSecao(nomeSecao)
+                sessao.removerSecao(nomeSecao)
 
                 menu.limparTerminal()
-                sleep(1)
+                sleep(.5)
 
             elif resposta == 6:
                 menu.cabecalho('Todas as Seções')
-                jogo.imprimirSecoes()
+                sessao.listarSecoes()
                 menu.limparTerminal()
 
             elif resposta == 7:
                 menu.cabecalho('Buscar Jogos')
-                jogo.buscarJogo()
+                nome = menu.validarEntradasUsuario('Informe o nome do jogo que sera buscado: ')
+                jogoBuscado = jogos.buscarJogo(nome)
+                if jogoBuscado:
+                    print(jogoBuscado)
                 menu.limparTerminal()
+                sleep(.5)
 
             elif resposta == 8:
                 print('Salvando Alterações...')
-                jogos.atualizarArquivo()
+                jogos.atualizarArquivoJogo()
+                sessao.atualizarArquivoSessao()
                 
                 sleep(.5)
                 print('Sistema Encerrado')
