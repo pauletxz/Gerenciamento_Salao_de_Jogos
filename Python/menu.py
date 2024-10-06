@@ -101,9 +101,8 @@ class menu:
                 preco_jogatina = menu.validarEntredaFloat('Informe o valor da hora: ')
                 genero_jogo = menu.validarEntradasUsuario('Informe o gênero do jogo: ')
                 jogos.adicionarJogo(nome, tipo, preco_jogatina, genero_jogo)
-                jogos.adicionarJogoArquivo(nome, tipo, preco_jogatina, genero_jogo)
             
-                sleep(0.5)
+                sleep(1)
                 menu.limparTerminal()
 
             elif resposta == 2:
@@ -112,7 +111,7 @@ class menu:
                 nome = menu.validarEntradasUsuario('Informe o nome do jogo a remover: ')
                 jogos.removerJogo(nome)
 
-                sleep(0.5)
+                sleep(1)
                 menu.limparTerminal()
 
             elif resposta == 3:
@@ -124,42 +123,38 @@ class menu:
                 genero_jogo = menu.validarEntradasUsuario('Informe o novo gênero do Jogo: ')
                 jogos.editarJogo(nome, tipo, preco_jogatina, genero_jogo)
 
-                sleep(.5)
+                sleep(1)
                 menu.limparTerminal()
             elif resposta == 4:
-                menu.cabecalho('Adicionar Nova Seção')
+                menu.cabecalho('Adicionar Nova Sessão')
 
-                nome = menu.validarEntradasUsuario('Informe o nome da seção: ')
-                descricao = menu.validarEntradasUsuario('Informe a descrição da seção: ')
-                jogosDisponivel = jogos.listarJogos()
-                if jogosDisponivel is not None:
-                    for index, item in enumerate(jogosDisponivel):
-                        print(f"{index}: {item['nome':]}")
-                        jogosessao = menu.validarEntradasUsuario('Informe o número do jogo que deseja adicionar')
-                        sessao.adicionarSecao(nome, descricao, jogosessao)
-                else:
-                    print('Nenhum jogo disponível')
-
+                nome = menu.validarEntradasUsuario('Informe o nome da sessão: ')
+                descricao = menu.validarEntradasUsuario('Informe a descrição da sessão: ')
+                if jogos.listarJogos() is not None:
+                    jogosDisponivel = jogos.listarJogos()
+                    jogoSelecionado = menu.validarEntradasUsuario('Digite um dos jogos listados a cima')
+                    sessao.adicionarSecao(nome, descricao, jogoSelecionado)
 
 
             elif resposta == 5:
 
-                menu.cabecalho('Remover Seção Existente')
+                menu.cabecalho('Remover Sessão Existente')
                 listaSessoes = sessao.listarSecoes()
                 if listaSessoes is not None:
-                    for index, item in enumerate(listaSessoes):
-                        print(f"{index}: {item['nome']}")
+                    for item in enumerate(listaSessoes):
+                        print(f"{item['nome']}")
                         nomeSecao = menu.validarEntradasUsuario('Informe o nome da seção a remover')
                         sessao.removerSecao(nomeSecao)
                 
-                sleep(.5)
+                sleep(1)
                 menu.limparTerminal()
 
             elif resposta == 6:
-                menu.cabecalho('Todas as Seções')
+                menu.cabecalho('Todas as Sessões')
                 sessao.listarSecoes()
+                sair = input('Digite ENTER para voltar ao menu')
 
-                sleep(2)
+                sleep(1)
                 menu.limparTerminal()
 
             elif resposta == 7:
@@ -169,7 +164,7 @@ class menu:
                 if jogoBuscado:
                     print(jogoBuscado)
                 menu.limparTerminal()
-                sleep(.5)
+                sleep(1)
 
             elif resposta == 8:
                 print('Salvando Alterações...')

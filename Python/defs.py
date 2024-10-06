@@ -55,6 +55,8 @@ class ListaEncadeada:
         while atual is not None:
             print(atual.dado)
             atual = atual.proximo
+            
+        
 
     def buscar(self, nome):
         atual = self.cabeca
@@ -131,7 +133,7 @@ class Jogos:
             return None
         
     def listarJogos(self):
-        self.jogos.listar()
+        return self.jogos.listar()
 
 class Sessao:
     def __init__(self):
