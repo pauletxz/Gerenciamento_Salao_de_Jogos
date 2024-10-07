@@ -132,9 +132,16 @@ class Jogos:
             print(f"Jogo {nome} não encontrado.")
             return None
         
-    def listarJogos(self):
-        return self.jogos.listar()
 
+    def listarJogos(self):
+        jogos = []
+        atual = self.jogos.cabeca
+        if atual is None:
+            return None
+        while atual is not None:
+            jogos.append(atual.dado['nome'])
+            atual = atual.proximo
+        return jogos 
 class Sessao:
     def __init__(self):
         self.sessoes = ListaEncadeada()

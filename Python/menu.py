@@ -125,15 +125,22 @@ class menu:
 
                 sleep(1)
                 menu.limparTerminal()
+
             elif resposta == 4:
                 menu.cabecalho('Adicionar Nova Sessão')
+                jogosDisponivel = jogos.listarJogos()
 
-                nome = menu.validarEntradasUsuario('Informe o nome da sessão: ')
-                descricao = menu.validarEntradasUsuario('Informe a descrição da sessão: ')
-                if jogos.listarJogos() is not None:
-                    jogosDisponivel = jogos.listarJogos()
-                    jogoSelecionado = menu.validarEntradasUsuario('Digite um dos jogos listados a cima')
-                    sessao.adicionarSecao(nome, descricao, jogoSelecionado)
+                if jogosDisponivel:
+                    print(jogosDisponivel)
+                    nome = menu.validarEntradasUsuario('Informe o nome da sessão: ')
+                    descricao = menu.validarEntradasUsuario('Informe a descrição da sessão: ')
+                    jogoSelecionado = menu.validarEntradasUsuario('Digite um dos jogos listados acima: ')
+                    sessao.adcionarSessao(nome, descricao, jogoSelecionado)
+                else:
+                    print("Nenhum jogo disponível.")
+
+                sleep(1)
+                menu.limparTerminal()
 
 
             elif resposta == 5:
