@@ -146,7 +146,7 @@ class Sessao:
     def __init__(self):
         self.sessoes = ListaEncadeada()
 
-    def adicionarSecao(self, nome, descricao, jogoSessao):
+    def adicionarSessao(self, nome, descricao, jogoSessao):
         sessao = {
             'nome': nome,
             'descricao': descricao,
@@ -163,11 +163,17 @@ class Sessao:
                 atual = atual.proximo
         print("Arquivo de seções atualizado.")
 
-    def removerSecao(self, nome):
+    def removerSessao(self, nome):
         self.sessoes.remover(nome)
         self.atualizarArquivoSessao()
         
-    def listarSecoes(self):
-        print("Lista de seções:")
-        self.sessoes.listar()
+    def listarSessoes(self):
+        sessoes = []
+        atual = self.sessoes.cabeca
+        if atual is None:
+            return None
+        while atual is not None:
+            sessoes.append(atual.dado['nome'])
+            atual = atual.proximo
+        return sessoes
 
