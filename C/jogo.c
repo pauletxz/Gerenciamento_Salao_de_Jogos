@@ -23,9 +23,9 @@ struct sessao{
 };
 
 void criarArquivoTexto(const char * jogos){
-    FILE *arquivo = fopen(jogos, "w"); // Abre o arquivo para escrita
+    FILE *arquivo = fopen(jogos, "w");
     if (arquivo == NULL) {
-        perror("Erro ao criar o arquivo");
+        perror("Erro ao criar o arquivo\n");
         return;
     }
 }
@@ -38,8 +38,8 @@ No * adicionar(No * lista , char nome[], char tipo[], float preco, char genero[]
         }
     strcpy(novo_jogo->nome, nome);
     strcpy(novo_jogo->tipo, tipo);
-    novo_jogo->preco = preco;
     strcpy(novo_jogo->genero, genero);
+    novo_jogo->preco = preco;
 
     No * novo = (No*)malloc(sizeof(No));
         novo->Jogo = novo_jogo;
@@ -76,6 +76,8 @@ No * busca(No * lista, char * nome){
     No* aux = lista;
     int inf;
         for(aux; aux != NULL; aux = aux->prox){
+            printf("qual jogo quer encontrar: \n");
+                scanf("%c", nome);
     inf = strcmp(aux->Jogo->nome, nome);    
             if(inf == 0){
                 printf("\n");
@@ -96,8 +98,8 @@ void salvar(No * lista){
         while(aux != NULL){
     fprintf(arquivo, "---------------------\n");
     fprintf(arquivo, "Nome: %s\n", aux->Jogo->nome);
-    fprintf(arquivo, "Genero: %s\n", aux->Jogo->genero);
     fprintf(arquivo, "Tipo: %s\n", aux->Jogo->tipo);
+    fprintf(arquivo, "Genero: %s\n", aux->Jogo->genero);
     fprintf(arquivo, "Valor: %.2f\n", aux->Jogo->preco);
     fprintf(arquivo, "---------------------\n");
     printf("\n");
@@ -108,6 +110,7 @@ void salvar(No * lista){
 }
 
 void editar(No * lista){
+    int op;
     char nome[50];
             printf("Digite o nome do jogo que deseja editar: \n");
         scanf("%s", nome);
@@ -116,7 +119,9 @@ void editar(No * lista){
     char novo_nome[50], novo_tipo[50], novo_genero[50];
     float novo_preco;
 
-    printf("se nao quiser alterar aperte ENTER \n");
+    printf("se nao quiser alterar aperte 1 \n");
+    scanf("%d", &op);
+        if(op == 1){return;}
     printf("Novo nome do jogo: \n");
     scanf("%c", &novo_nome);
     fgets(novo_nome, sizeof(novo_nome), stdin);
@@ -127,7 +132,7 @@ void editar(No * lista){
     fgets(novo_tipo, sizeof(novo_tipo), stdin);
     strtok(novo_tipo, "\n");
 
-    printf("Novo genero do jogo: ");
+    printf("Novo genero do jogo: \n");
     scanf("%c", &novo_genero);
     fgets(novo_genero, sizeof(novo_genero), stdin);
     strtok(novo_genero, "\n");
