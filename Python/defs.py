@@ -46,17 +46,7 @@ class ListaEncadeada:
         else:
             anterior.proximo = atual.proximo
 
-        print(f"{nome} removido com sucesso.")
-    
-    def listar(self):
-        atual = self.cabeca
-        if atual is None:
-            print("Nenhuma dado encontrada.")
-        while atual is not None:
-            print(atual.dado)
-            atual = atual.proximo
-            
-        
+        print(f"{nome} removido com sucesso.")     
 
     def buscar(self, nome):
         atual = self.cabeca

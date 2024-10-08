@@ -175,8 +175,6 @@ class menu:
                 menu.cabecalho('Buscar Jogos')
                 nome = menu.validarEntradasUsuario('Informe o nome do jogo que sera buscado: ')
                 jogoBuscado = jogos.buscarJogo(nome)
-                if jogoBuscado:
-                    print(jogoBuscado)
                 
                 sair = input('Digite ENTER para voltar ao menu')
                 sleep(1)
