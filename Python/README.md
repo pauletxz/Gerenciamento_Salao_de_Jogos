@@ -64,7 +64,7 @@ Ao iniciar o sistema, o menu principal exibirá as opções disponíveis:
 - Remover jogo/sessão: Exclui itens com base no nome.
 - Listar jogos/sessões: Exibe todos os jogos ou sessões cadastrados.
 
-## Desenvolvedore:
+## Desenvolvedores:
 
 - [Igor Cavalcante Rocha](https://github.com/Igor-C-Rocha)
 

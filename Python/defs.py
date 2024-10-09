@@ -1,38 +1,42 @@
+# Declarando a Class No
 class No:
     def __init__(self, dado=None):
         self.dado = dado
         self.proximo = None
-
+# Declarando a Class ListaEncadeada
 class ListaEncadeada:
     def __init__(self):
         self.cabeca = None 
-    
+    # Adciona um dicionario em uma lista encadeada
     def adicionar(self, dado):
-        novo_no = No(dado)
+        novoNo = No(dado)
         if self.cabeca is None:
-            self.cabeca = novo_no
+            self.cabeca = novoNo
         else:
             atual = self.cabeca
             anterior = None
-            
-            while atual is not None and atual.dado['nome'] < novo_no.dado['nome']:
+            # Percorre a lista Encadeada até o fim
+            while atual is not None and atual.dado['nome'] < novoNo.dado['nome']:
+
                 anterior = atual
                 atual = atual.proximo
             
-          
+            # Cria um encadeamento na Lista 
             if anterior is None:
-                novo_no.proximo = self.cabeca
-                self.cabeca = novo_no
+                novoNo.proximo = self.cabeca
+                self.cabeca = novoNo
             else:
-                novo_no.proximo = atual
-                anterior.proximo = novo_no
+                novoNo.proximo = atual
+                anterior.proximo = novoNo
             
         print(f"{dado['nome']} adicionado com sucesso.")
     
+    # Verifica e remove o nome receido
     def remover(self, nome):
         atual = self.cabeca
         anterior = None
 
+        # Percorre a lista verifica se o nome recebido está presente na Lista
         while atual is not None and atual.dado['nome'] != nome:
             anterior = atual
             atual = atual.proximo
@@ -48,9 +52,12 @@ class ListaEncadeada:
 
         print(f"{nome} removido com sucesso.")     
 
+    # Busca o nome recebido na Lista
     def buscar(self, nome):
         atual = self.cabeca
+        #Precorre toda a Lista
         while atual is not None:
+            # Verifica se o nome esta presente na lista
             if atual.dado['nome'] == nome:
                 return atual.dado
             atual = atual.proximo
@@ -58,63 +65,73 @@ class ListaEncadeada:
 
 class Jogos:
     def __init__(self):
-        self.jogos = ListaEncadeada()
+        # Instaciando a class Lista em jogos
+        self.Lista = ListaEncadeada()
 
-    def adicionarJogo(self, nome, tipo, preco_jogatina, genero_jogo):
+    # Converte os dados recebido para um dicionario
+    def adicionarJogo(self, nome, tipo, precoJogatina, generoJogo):
         jogo = {
             'nome': nome,
             'tipo': tipo,
-            'preco_jogatina': preco_jogatina,
-            'genero_jogo': genero_jogo
+            'preco_jogatina': precoJogatina,
+            'genero_jogo': generoJogo
         }
-        self.jogos.adicionar(jogo)
-        self.atualizarArquivoJogo()
-        return jogo
+        # Adciona o decionario na Lista
+        self.Lista.adicionar(jogo)
 
-    def adicionarJogoArquivo(self, nome, tipo, preco_jogatina, genero_jogo):
-        with open('jogo_log.txt', 'a') as arquivo:
-            arquivo.write(f"Nome: {nome}, Tipo: {tipo}, Preço: {preco_jogatina}, Gênero: {genero_jogo}\n")
-        print(f"Jogo {nome} salvo no arquivo com sucesso!")
-
+    # Verifica se o nome recebido esta presente na lista e o remove
     def removerJogo(self, nome):
-        jogo_removido = self.jogos.buscar(nome)
-        if jogo_removido:
-            self.jogos.remover(nome)
-            self.atualizarArquivoJogo()
+        jogoRemovido = self.Lista.buscar(nome)
+        if jogoRemovido:
+            self.Lista.remover(nome)
         else:
             print(f"Jogo {nome} não encontrado.")
+  
+    # Carrega os dados dos jogos usados anteriomente (com base nos dados salvos no jogos.txt)
+    def carregarJogos(self):
+        try:
+            with open('jogos.txt', 'r') as arquivo:
+                for linha in arquivo:
+                    nome, tipo, precoJogatina, generoJogo = linha.strip().split(',')
+                    self.adicionarJogo(nome, tipo , precoJogatina , generoJogo)
 
-    def atualizarArquivoJogo(self):
-        with open('jogo_log.txt', 'w') as arquivo:
-            atual = self.jogos.cabeca
-            while atual is not None:
-                arquivo.write(f"Nome: {atual.dado['nome']}, Tipo: {atual.dado['tipo']}, Preço: {atual.dado['preco_jogatina']}, Gênero: {atual.dado['genero_jogo']}\n")
+        except FileNotFoundError:
+            pass
+                    
+    # Escreve os jogos salvos na lista no arquivo jogos.txt
+    def salvarJogos(self):
+        with open('jogos.txt', 'r+') as arquivo:
+            atual = self.Lista.cabeca
+            while atual:
+                jogo = atual.dado
+                arquivo.write(f"{jogo['nome']},{jogo['tipo']},{jogo['preco_jogatina']},{jogo['genero_jogo']}\n")
                 atual = atual.proximo
-        print("Arquivo atualizado com os jogos restantes.")
 
-    def editarJogo(self, nome, novo_nome=None, novo_tipo=None, novo_preco_jogatina=None, novo_genero_jogo=None):
-        atual = self.jogos.cabeca
-        
+    # Edita o jogo recebedio na variavel nome
+    def editarJogo(self, nome, novoNome=None, novoTipo=None, novoPrecoJogatina=None, novoGeneroJogo=None):
+        atual = self.Lista.cabeca
+
         while atual is not None:
             if atual.dado['nome'] == nome:
-                if novo_nome:
-                    atual.dado['nome'] = novo_nome
-                if novo_tipo:
-                    atual.dado['tipo'] = novo_tipo
-                if novo_preco_jogatina:
-                    atual.dado['preco_jogatina'] = novo_preco_jogatina
-                if novo_genero_jogo:
-                    atual.dado['genero_jogo'] = novo_genero_jogo
+                if novoNome:
+                    atual.dado['nome'] = novoNome
+                if novoTipo:
+                    atual.dado['tipo'] = novoTipo
+                if novoPrecoJogatina:
+                    atual.dado['preco_jogatina'] = novoPrecoJogatina
+                if novoGeneroJogo:
+                    atual.dado['genero_jogo'] = novoGeneroJogo
                 print(f"Jogo {nome} atualizado com sucesso!")
-                self.atualizarArquivoJogo()
+                self.salvarJogos()
                 return atual.dado
             atual = atual.proximo
         
         print(f"Jogo {nome} não encontrado.")
         return None
-
+    
+    # Busca o nome recebido
     def buscarJogo(self, nome):
-        jogo = self.jogos.buscar(nome)
+        jogo = self.Lista.buscar(nome)
         if jogo:
             print(f"Jogo encontrado: {jogo}")
             return jogo
@@ -122,10 +139,10 @@ class Jogos:
             print(f"Jogo {nome} não encontrado.")
             return None
         
-
+    # Lista todos os jogos disponiveis
     def listarJogos(self):
         jogos = []
-        atual = self.jogos.cabeca
+        atual = self.Lista.cabeca
         if atual is None:
             return None
         while atual is not None:
@@ -134,32 +151,51 @@ class Jogos:
         return jogos 
 class Sessao:
     def __init__(self):
-        self.sessoes = ListaEncadeada()
+        # Instaciando a class Lista em jogos
+        self.Lista = ListaEncadeada()
 
+    # Converte as variaveis recebidas para dicionario
     def adicionarSessao(self, nome, descricao, jogoSessao):
         sessao = {
             'nome': nome,
             'descricao': descricao,
-            'jogos': jogoSessao
+            'jogoSessao': jogoSessao
         }
-        self.sessoes.adicionar(sessao)
-        self.atualizarArquivoSessao()
+        # Adciona o dicionario na Lista
+        self.Lista.adicionar(sessao)
+        print(f"Sessão {nome} adicionada com sucesso!")
 
-    def atualizarArquivoSessao(self):
-        with open('sessao_log.txt', 'w') as arquivo:
-            atual = self.sessoes.cabeca
+    # Escreve o dados presente na Lista no arquivo sessoes.txt
+    def salvarSessoes(self):
+        with open('sessoes.txt', 'w') as arquivo:
+            atual = self.Lista.cabeca
             while atual is not None:
-                arquivo.write(f"Nome: {atual.dado['nome']}, Descrição: {atual.dado['descricao']}, Jogos: {atual.dado['jogos']}\n")
+                sessao = atual.dado
+                # Foi utilizado o .get() para eveitar o keyError
+                nome = sessao.get('nome')
+                descricao = sessao.get('descricao')
+                jogoSessao = sessao.get('jogoSessao')
+                arquivo.write(f"{nome},{descricao},{jogoSessao}\n")
                 atual = atual.proximo
-        print("Arquivo de seções atualizado.")
-
+     # Carrega os dados doas sessoes anteriores (com base nos dados salvos no sessoes.txt)
+    def carregarSessoes(self):
+        try:
+            with open('sessoes.txt', 'r+') as arquivo:
+                for linha in arquivo:
+                    nome, descricao, jogoSessao = linha.strip().split(',')
+                    self.adicionarSessao(nome, descricao ,jogoSessao)
+        except FileNotFoundError:
+            pass
+    
+    # Remove o nome recebido da Lista
     def removerSessao(self, nome):
-        self.sessoes.remover(nome)
-        self.atualizarArquivoSessao()
-        
+        self.Lista.remover(nome)
+        self.salvarSessoes()
+
+    # Lista todas as sessões criadas
     def listarSessoes(self):
         sessoes = []
-        atual = self.sessoes.cabeca
+        atual = self.Lista.cabeca
         if atual is None:
             return None
         while atual is not None:

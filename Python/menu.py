@@ -3,32 +3,24 @@ from time import sleep
 from re import search
 from defs import Jogos, Sessao
 
-class menu:
+class Menu:
+    def __init__(self, jogo, sessao):
+        # Instanciando as class Jogos e sessao no Menu
+        self.jogos = jogo
+        self.sessao = sessao
+        pass
     
+    # Função para criar as linhas no menu
     def linha(tam=50):
         return '-' * tam
 
+    # Função que cria e centraliza o cabecalho
     def cabecalho(txt):
-        print(menu.linha())
+        print(Menu.linha())
         print(txt.center(50))
-        print(menu.linha())
+        print(Menu.linha())
 
-    def verificaArquivo(nome):
-        try:
-            with open(nome, 'rt'):
-                pass
-        except FileNotFoundError:
-            menu.criarArquivo(nome)
-
-    def criarArquivo(nome):
-        try:
-            with open(nome, 'wt+'):
-                pass
-        except Exception as e:
-            print(f"Erro ao criar arquivo: {e}")
-        else:
-            print("Arquivo criado com sucesso")
-
+    # Função para receber e verificar as opções digitadas pelo usuario
     def opcoes(msg):
         while True:
             try:
@@ -41,7 +33,7 @@ class menu:
                 return 0
             else:
                 return n
-
+    # verifica a entrada (Verificando se o usuario 2 espaços em branco, ou digitou algum caracter invisivel)
     def validarEntradasUsuario(msg):
         while True:
             entrada = input(msg).strip().lower()
@@ -55,7 +47,7 @@ class menu:
                 print('\033[31mERRO! Digite um valor válido.\033[m')
                 continue
             return entrada
-        
+    # verifica a entrada (Verificando se a entrada do usaurio foi um numero inteiro ou real)
     def validarEntredaFloat(msg):
         while True:
             try:
@@ -69,125 +61,132 @@ class menu:
             else:
                 return entrada
 
+    # Cria a interface
     def interface(listaOpc):
-        menu.cabecalho("Menu Principal")
+        Menu.cabecalho("Menu Principal")
         for c, item in enumerate(listaOpc, start=1):
             print("\033[92m" + f"{c} - {item}" + "\033[0m") 
-        print(menu.linha())
-        opcao = menu.opcoes('Você escolheu: ')
+        print(Menu.linha())
+        opcao = Menu.opcoes('Você escolheu: ')
         return opcao
 
+    # Virifica qual o OS do usario e limpa o terminal
     def limparTerminal():
         if os.name == 'nt':
             os.system('cls')
         else:
             os.system('clear')
-
-    def criar():
-        menu.cabecalho('Gerenciamento CyberCafe')
-        jogos = Jogos()
-        sessao = Sessao()
+    
+    #Cria o menu
+    def criar(self):
+        Menu.cabecalho('Gerenciamento CyberCafe')
+        jogos = self.jogos
+        sessao = self.sessao
         while True:
-            resposta = menu.interface([
+            resposta = Menu.interface([
                 'Adicionar Jogo', 'Remover Jogo', 'Editar Jogo',
                 'Adicionar Nova Seção', 'Remover Seção Existente',
                 'Todas as Seções', 'Buscar Jogos', 'Sair'
             ])  
             if resposta == 1:
 
-                menu.cabecalho('Adicionar Jogo')
-                nome = menu.validarEntradasUsuario('Informe o nome do jogo: ')
-                tipo = menu.validarEntradasUsuario('Informe o tipo de jogo: ')
-                preco_jogatina = menu.validarEntredaFloat('Informe o valor da hora: ')
-                genero_jogo = menu.validarEntradasUsuario('Informe o gênero do jogo: ')
+                Menu.cabecalho('Adicionar Jogo')
+
+                nome = Menu.validarEntradasUsuario('Informe o nome do jogo: ')
+                tipo = Menu.validarEntradasUsuario('Informe o tipo de jogo: ')
+                preco_jogatina = Menu.validarEntredaFloat('Informe o valor da hora: ')
+                genero_jogo = Menu.validarEntradasUsuario('Informe o gênero do jogo: ')
+
                 jogos.adicionarJogo(nome, tipo, preco_jogatina, genero_jogo)
             
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 2:
 
-                menu.cabecalho('Remover Jogo')
-                nome = menu.validarEntradasUsuario('Informe o nome do jogo a remover: ')
+                Menu.cabecalho('Remover Jogo')
+                nome = Menu.validarEntradasUsuario('Informe o nome do jogo a remover: ')
                 jogos.removerJogo(nome)
 
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 3:
 
-                menu.cabecalho('Editar Jogo')
+                Menu.cabecalho('Editar Jogo')
                 jogosDisponivel = jogos.listarJogos()
 
                 print('Jogos Disponiveis: ')
                 print(jogosDisponivel)
-                nome = menu.validarEntradasUsuario('Informe o nome do jogo que deseja editar: ')
-                tipo = menu.validarEntradasUsuario('Informe o novo tipo do jogo: ')
-                preco_jogatina = menu.validarEntredaFloat('Informe o novo valor da hora: ')
-                genero_jogo = menu.validarEntradasUsuario('Informe o novo gênero do Jogo: ')
-                jogos.editarJogo(nome, tipo, preco_jogatina, genero_jogo)
+                nome = Menu.validarEntradasUsuario('Informe o nome do jogo que deseja editar: ')
+                novoNome = Menu.validarEntradasUsuario('Informe o novo nome para o jogo: ')
+                tipo = Menu.validarEntradasUsuario('Informe o novo tipo do jogo: ')
+                preco_jogatina = Menu.validarEntredaFloat('Informe o novo valor da hora: ')
+                genero_jogo = Menu.validarEntradasUsuario('Informe o novo gênero do Jogo: ')
+                jogos.editarJogo(nome, novoNome, tipo, preco_jogatina, genero_jogo)
+                
 
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 4:
-                menu.cabecalho('Adicionar Nova Sessão')
+                Menu.cabecalho('Adicionar Nova Sessão')
                 jogosDisponivel = jogos.listarJogos()
 
                 if jogosDisponivel:
-                    nome = menu.validarEntradasUsuario('Informe o nome da sessão: ')
-                    descricao = menu.validarEntradasUsuario('Informe a descrição da sessão: ')
+                    nome = Menu.validarEntradasUsuario('Informe o nome da sessão: ')
+                    descricao = Menu.validarEntradasUsuario('Informe a descrição da sessão: ')
                     print("Jogos Disponiveis: ")
                     print(jogosDisponivel)
-                    jogoSelecionado = menu.validarEntradasUsuario('Digite jogos listados acima: ')
+                    jogoSelecionado = Menu.validarEntradasUsuario('Digite jogos listados acima: ')
                     sessao.adicionarSessao(nome, descricao, jogoSelecionado)
                 else:
                     print("Nenhum jogo disponível.")
 
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
 
             elif resposta == 5:
 
-                menu.cabecalho('Remover Sessão Existente')
+                Menu.cabecalho('Remover Sessão Existente')
                 listaSessoes = sessao.listarSessoes()
                 if listaSessoes:
                     print('Sessões Disponiveis: ')
                     print(listaSessoes)
-                    nome = menu.validarEntradasUsuario('Informe o nome da sessão que deseja remover: ')
+                    nome = Menu.validarEntradasUsuario('Informe o nome da sessão que deseja remover: ')
                     sessao.removerSessao(nome)
                 
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 6:
-                menu.cabecalho('Todas as Sessões')
+                Menu.cabecalho('Todas as Sessões')
                 listaSessoes = sessao.listarSessoes()
                 print("Sessões Disponiveis: ")
                 print(listaSessoes)
                 sair = input('Digite ENTER para voltar ao menu')
 
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 7:
-                menu.cabecalho('Buscar Jogos')
-                nome = menu.validarEntradasUsuario('Informe o nome do jogo que sera buscado: ')
+                Menu.cabecalho('Buscar Jogos')
+                nome = Menu.validarEntradasUsuario('Informe o nome do jogo que sera buscado: ')
                 jogoBuscado = jogos.buscarJogo(nome)
                 
                 sair = input('Digite ENTER para voltar ao menu')
                 sleep(1)
-                menu.limparTerminal()
+                Menu.limparTerminal()
 
             elif resposta == 8:
                 print('Salvando Alterações...')
-                jogos.atualizarArquivoJogo()
-                sessao.atualizarArquivoSessao()
-                
+                jogos.salvarJogos()
+                sessao.salvarSessoes()
+
                 sleep(.5)
                 print('Sistema Encerrado')
-                menu.limparTerminal()
+                Menu.limparTerminal()
                 sleep(.5)
                 break
             else:

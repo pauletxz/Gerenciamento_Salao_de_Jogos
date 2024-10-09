@@ -1,2 +1,0 @@
-Nome: abc, Tipo: abc, Preço: 1.0, Gênero: abc
-Nome: aviao, Tipo: avaio, Preço: 1.0, Gênero: avaio
