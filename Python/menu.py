@@ -33,44 +33,53 @@ class Menu:
                 return 0
             else:
                 return n
-    # verifica a entrada (Verificando se o usuario 2 espaços em branco, ou digitou algum caracter invisivel)
+    # Verifica a entrada (Verificando se o usuario 2 espaços em branco, ou digitou algum caracter invisivel)
     def validarEntradasUsuario(msg):
         while True:
+            
             entrada = input(msg).strip().lower()
             if not entrada:
                 print('\033[31mERRO! Digite um valor válido.\033[m')
                 continue
+            
             if search(r'\s{2,}, , ', entrada):
                 print('\033[31mERRO! Digite um valor válido.\033[m')
                 continue
+            
             if search(r'ㅤ', entrada):
                 print('\033[31mERRO! Digite um valor válido.\033[m')
                 continue
+            
             return entrada
-    # verifica a entrada (Verificando se a entrada do usaurio foi um numero inteiro ou real)
+    # Verifica a entrada (Verificando se a entrada do usaurio foi um numero inteiro ou real)
     def validarEntredaFloat(msg):
         while True:
             try:
+                
                 entrada = float(input(msg))
             except (ValueError, TypeError):
                 print('\033[31mERRO! Digite um número válido.\033[m')
                 continue
+            
             except KeyboardInterrupt:
                 print('\033[31mO usuário preferiu não digitar esse número.\033[m')
                 return 0
             else:
+                
                 return entrada
 
     # Cria a interface
     def interface(listaOpc):
+        
         Menu.cabecalho("Menu Principal")
         for c, item in enumerate(listaOpc, start=1):
             print("\033[92m" + f"{c} - {item}" + "\033[0m") 
         print(Menu.linha())
+        
         opcao = Menu.opcoes('Você escolheu: ')
         return opcao
 
-    # Virifica qual o OS do usario e limpa o terminal
+    # Verifica qual o sistema operacional do usuario e limpa o terminal
     def limparTerminal():
         if os.name == 'nt':
             os.system('cls')
@@ -79,7 +88,7 @@ class Menu:
     
     #Cria o menu
     def criar(self):
-        Menu.cabecalho('Gerenciamento CyberCafe')
+        Menu.cabecalho('Gerenciamento Salão de Jogos')
         jogos = self.jogos
         sessao = self.sessao
         while True:
@@ -114,6 +123,7 @@ class Menu:
             elif resposta == 3:
 
                 Menu.cabecalho('Editar Jogo')
+                # jogosDisponivel recebe todos os jogos disponiveis
                 jogosDisponivel = jogos.listarJogos()
 
                 print('Jogos Disponiveis: ')
@@ -138,7 +148,7 @@ class Menu:
                     descricao = Menu.validarEntradasUsuario('Informe a descrição da sessão: ')
                     print("Jogos Disponiveis: ")
                     print(jogosDisponivel)
-                    jogoSelecionado = Menu.validarEntradasUsuario('Digite jogos listados acima: ')
+                    jogoSelecionado = Menu.validarEntradasUsuario('Digite jogos listados acima(caso for adcionar mais de um Jogo \n Separe por .): ')
                     sessao.adicionarSessao(nome, descricao, jogoSelecionado)
                 else:
                     print("Nenhum jogo disponível.")

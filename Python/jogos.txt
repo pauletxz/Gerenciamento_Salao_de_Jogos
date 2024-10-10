@@ -1,5 +1,8 @@
+Counter Strike 1.6,fps,1.5,Acao
+black,Fps,1.5,Acao
+jogonovo,jogonovo,1.0,acao
 minecraft, sobrevivencia, 1.5, aventura
 nfs,corrida,1.5,corrida
 nfs 2,corrida,1.5,corrida
 nfs 3,corrida,1.5,corrida
-terraia, sobrevivencia, 1.5, avetura
+terraia, sobrevivencia, 1.5, aventura

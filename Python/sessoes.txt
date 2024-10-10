@@ -1,2 +1,3 @@
-Jogos aventura, Sessao para todos os jogos do genero aventura, terraia. minecraft.
-Jogos Nfs, Sessao para todos os jogos NFS, nfs. nfs2. nfs3.
+Jogos Aventura, Sessao para todos os jogos do genero aventura, terraia. minecraft.
+Jogos Corrida, Sessao para todos os jogos de corrida, nfs1. nfs2. nfs3.
+Jogos Fps, Sessao dedicada a jogos fps, Counter Strike 1.6. black.

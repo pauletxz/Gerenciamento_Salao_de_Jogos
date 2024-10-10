@@ -3,9 +3,11 @@ class No:
     def __init__(self, dado=None):
         self.dado = dado
         self.proximo = None
+        
 # Declarando a Class ListaEncadeada
 class ListaEncadeada:
     def __init__(self):
+        # Iniciando a Lista vazia
         self.cabeca = None 
     # Adciona um dicionario em uma lista encadeada
     def adicionar(self, dado):
@@ -17,11 +19,10 @@ class ListaEncadeada:
             anterior = None
             # Percorre a lista Encadeada até o fim
             while atual is not None and atual.dado['nome'] < novoNo.dado['nome']:
-
+            # Cria um encadeamento na Lista 
                 anterior = atual
                 atual = atual.proximo
             
-            # Cria um encadeamento na Lista 
             if anterior is None:
                 novoNo.proximo = self.cabeca
                 self.cabeca = novoNo
@@ -33,6 +34,7 @@ class ListaEncadeada:
     
     # Verifica e remove o nome receido
     def remover(self, nome):
+        
         atual = self.cabeca
         anterior = None
 
@@ -63,6 +65,7 @@ class ListaEncadeada:
             atual = atual.proximo
         return None
 
+# Declarando a class Jogos
 class Jogos:
     def __init__(self):
         # Instaciando a class Lista em jogos
@@ -76,7 +79,7 @@ class Jogos:
             'preco_jogatina': precoJogatina,
             'genero_jogo': generoJogo
         }
-        # Adciona o decionario na Lista
+        # Adiciona o dicionario na Lista
         self.Lista.adicionar(jogo)
 
     # Verifica se o nome recebido esta presente na lista e o remove
@@ -92,6 +95,7 @@ class Jogos:
         try:
             with open('jogos.txt', 'r') as arquivo:
                 for linha in arquivo:
+                    # Retirando os espaços e separando por virgula
                     nome, tipo, precoJogatina, generoJogo = linha.strip().split(',')
                     self.adicionarJogo(nome, tipo , precoJogatina , generoJogo)
 
@@ -100,8 +104,10 @@ class Jogos:
                     
     # Escreve os jogos salvos na lista no arquivo jogos.txt
     def salvarJogos(self):
+        # Abre o arquivo com permissão de leitura e criação de arquivo
         with open('jogos.txt', 'r+') as arquivo:
             atual = self.Lista.cabeca
+            # Precorre toda a lista e escreve no arquivo 
             while atual:
                 jogo = atual.dado
                 arquivo.write(f"{jogo['nome']},{jogo['tipo']},{jogo['preco_jogatina']},{jogo['genero_jogo']}\n")
@@ -142,13 +148,18 @@ class Jogos:
     # Lista todos os jogos disponiveis
     def listarJogos(self):
         jogos = []
+        # Atual recebe o inicio da Lista
         atual = self.Lista.cabeca
         if atual is None:
             return None
+        # Percorre a Lista até o final
         while atual is not None:
+            # Adiciona o nome do jogo em uma nova lista
             jogos.append(atual.dado['nome'])
             atual = atual.proximo
         return jogos 
+
+# Declarando a class Sessao
 class Sessao:
     def __init__(self):
         # Instaciando a class Lista em jogos
@@ -161,14 +172,16 @@ class Sessao:
             'descricao': descricao,
             'jogoSessao': jogoSessao
         }
-        # Adciona o dicionario na Lista
+        # Adiciona o dicionario na Lista
         self.Lista.adicionar(sessao)
         print(f"Sessão {nome} adicionada com sucesso!")
 
     # Escreve o dados presente na Lista no arquivo sessoes.txt
     def salvarSessoes(self):
+        # Abre o arquivo com permissão de escrita
         with open('sessoes.txt', 'w') as arquivo:
             atual = self.Lista.cabeca
+            # Percorre toda a Lista e escreve uma copia dos dados da lista usando o .get()
             while atual is not None:
                 sessao = atual.dado
                 # Foi utilizado o .get() para eveitar o keyError
@@ -177,11 +190,14 @@ class Sessao:
                 jogoSessao = sessao.get('jogoSessao')
                 arquivo.write(f"{nome},{descricao},{jogoSessao}\n")
                 atual = atual.proximo
+                
      # Carrega os dados doas sessoes anteriores (com base nos dados salvos no sessoes.txt)
     def carregarSessoes(self):
         try:
+            # Abre o arquivo com permissão de leitura e criação de arquivo
             with open('sessoes.txt', 'r+') as arquivo:
                 for linha in arquivo:
+                    # Retirando os espaços e separando por virgula
                     nome, descricao, jogoSessao = linha.strip().split(',')
                     self.adicionarSessao(nome, descricao ,jogoSessao)
         except FileNotFoundError:
@@ -195,11 +211,13 @@ class Sessao:
     # Lista todas as sessões criadas
     def listarSessoes(self):
         sessoes = []
+        # Atual recebe o inicio da Lista
         atual = self.Lista.cabeca
         if atual is None:
             return None
+        # Percorre a Lista até o fim
         while atual is not None:
+            # Adiciona o nome da sessão no fim de uma nova lista
             sessoes.append(atual.dado['nome'])
             atual = atual.proximo
         return sessoes
-

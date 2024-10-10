@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto tem como objetivo criar um sistema para gerenciamento de jogos e sessões em um CyberCafe. O sistema permite o cadastro, remoção e busca de jogos e sessões de jogatina. Além disso, conta com a funcionalidade de listar jogos e sessões, salvando essas informações em um arquivo.
+Este projeto tem como objetivo criar um sistema para gerenciamento de salão de jogos. O sistema permite o cadastro, remoção e busca de jogos e sessões de jogatina. Além disso, conta com a funcionalidade de listar jogos e sessões, salvando essas informações em um arquivo.
 
 ## Funcionalidades
 
@@ -25,7 +25,7 @@ Este projeto tem como objetivo criar um sistema para gerenciamento de jogos e se
 
 - **`defs.py`:** Contém as classes de manipulação de listas encadeadas e gerenciamento de dados, como as classes `No`, `ListaEncadeada`, `Jogos`, e `Sessoes`. Essas classes implementam a lógica de adicionar, remover, listar e buscar elementos.
 - **`main.py`:** É o ponto de entrada do sistema. Implementa o menu de interação do usuário e as operações para gerenciar jogos e sessões.
-- **`menu.py`:** Contém funções auxiliares como a exibição de menus, validação de entradas do usuário e controle de fluxo.
+- **`menu.py`:** Contém funções auxiliares como a exibição de menus, carregar jogos e sessões.
 
 ## Instruções de Instalação
 
@@ -47,7 +47,6 @@ Ao iniciar o sistema, o menu principal exibirá as opções disponíveis:
 - Listar sessões
 - Buscar jogo
 - Salvar alterações e sair
-- Siga as instruções do menu para realizar as operações desejadas.
 
 ## Estrutura do Código
 
